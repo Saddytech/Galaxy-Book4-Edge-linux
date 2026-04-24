@@ -1,0 +1,29 @@
+*.iso
+*.tar.gz
+*.tar.gz.sha256
+squashfs-root/
+base/
+extract/
+output/
+bootkit-*/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C/Kernel
+*.o
+*.ko
+*.mod
+*.mod.c
+*.cmd
+modules.order
+Module.symvers
+.tmp_versions/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

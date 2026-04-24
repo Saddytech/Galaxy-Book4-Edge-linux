@@ -1,0 +1,5 @@
+# The qcom-battmgr-bat power_supply registered by the pmic-glink ADSP
+# driver is non-functional on the Galaxy Book4 Edge (all reads return
+# -EAGAIN). Tell UPower to ignore it so the GNOME tray shows only the
+# working samsung-galaxybook-bat device.
+SUBSYSTEM=="power_supply", KERNEL=="qcom-battmgr-bat", ENV{UPOWER_IGNORE}="1"

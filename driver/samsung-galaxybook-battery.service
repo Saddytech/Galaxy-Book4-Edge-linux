@@ -1,0 +1,17 @@
+[Unit]
+Description=Bind Samsung Galaxy Book4 Edge battery driver to i2c-2 @ 0x64
+# Wait until the i2c bus really exists
+ConditionPathExists=/sys/bus/i2c/devices/i2c-2
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/sbin/modprobe samsung_galaxybook_battery
+# If already bound (e.g. by udev), the new_device write returns -EBUSY. That's fine.
+ExecStart=/bin/sh -c 'if [ ! -e /sys/bus/i2c/devices/2-0064 ]; then \
+    echo "sgbook-battery 0x64" > /sys/bus/i2c/devices/i2c-2/new_device; \
+fi'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

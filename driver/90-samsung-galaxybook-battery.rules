@@ -1,0 +1,13 @@
+# udev rule: auto-instantiate the Samsung Galaxy Book4 Edge battery
+# driver on i2c-2 @ 0x64 whenever that i2c adapter appears.
+#
+# The i2c adapter name depends on the SoC block; on the X1E80100 the
+# bus on MMIO 0xB80000 surfaces as kobject "b80000.i2c". Match on
+# that so we bind to the right adapter regardless of enumeration order.
+
+ACTION=="add", SUBSYSTEM=="i2c-dev", KERNEL=="i2c-2", \
+    RUN+="/bin/sh -c 'echo sgbook-battery 0x64 > /sys/bus/i2c/devices/i2c-2/new_device'"
+
+# Autoload the module when the i2c bus comes up.
+ACTION=="add", SUBSYSTEM=="i2c", KERNELS=="b80000.i2c", \
+    RUN+="/sbin/modprobe samsung_galaxybook_battery"
