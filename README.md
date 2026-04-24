@@ -4,6 +4,8 @@ This repository contains reverse-engineered drivers, tools, and documentation fo
 
 Due to the device's proprietary ACPI implementations and reliance on the ENE KB9058 Embedded Controller (EC), many hardware features do not work out-of-the-box on mainline Linux. This repository aims to bridge those gaps.
 
+Watch the video here: https://youtu.be/V2DxY_PqLBg
+
 ## Repository Structure
 
 ### 🔋 [`driver/`](./driver/)
