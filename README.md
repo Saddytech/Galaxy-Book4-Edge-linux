@@ -39,3 +39,22 @@ This software is experimental and was developed through reverse-engineering. It 
 
 * The Battery Driver (`driver/`) is licensed under GPL v2.
 * Scripts and tools are provided as-is for research and development purposes.
+
+## Credits & Acknowledgements
+
+A special thank you to the open-source community for laying the foundation for Snapdragon X Elite devices:
+
+* **Max ([zensanp](https://github.com/zensanp/linux-book4-edge))**: Base kernel fork and Device Trees.
+* **Wesley Cheng**: Initial X1 Elite minimal kernel.
+* **[jglathe](https://github.com/jglathe/linux_ms_dev_kit)**: Pre-built Ubuntu images used for initial booting.
+* **Joshua Grisham ([samsung-galaxybook-extras](https://github.com/joshuagrisham/samsung-galaxybook-extras))**: SABI v4 protocol and ACPI/DSDT research.
+* **[icecream95](https://github.com/icecream95/xle-ec-tool)** & **[Maccraft123](https://github.com/Maccraft123/it8987-qcom-tool)**: Embedded Controller (EC) research tools and fan control patterns.
+* **Canonical / Ubuntu**: Base 7.0 kernel and official OS image.
+
+### Our Contribution (SaddyTech)
+
+Specific solutions we engineered to make the 16" Galaxy Book4 Edge (NP960XMA-KB1IT) fully usable:
+
+* **Battery Driver**: Reverse-engineered the ENE KB9058 EC Mailbox protocol and wrote the `samsung_galaxybook_battery.c` driver from scratch.
+* **PXE Boot**: Built a custom network boot infrastructure to bypass dead USB controllers during installation.
+* **DTS & Firmware**: Manually patched the touchpad I2C address (`0xd1`) and extracted Samsung `.jsn` files from Windows for USB-C altmode.
