@@ -49,6 +49,7 @@ A special thank you to the open-source community for laying the foundation for S
 * **[jglathe](https://github.com/jglathe/linux_ms_dev_kit)**: Pre-built Ubuntu images used for initial booting.
 * **Joshua Grisham ([samsung-galaxybook-extras](https://github.com/joshuagrisham/samsung-galaxybook-extras))**: SABI v4 protocol and ACPI/DSDT research.
 * **[icecream95](https://github.com/icecream95/xle-ec-tool)** & **[Maccraft123](https://github.com/Maccraft123/it8987-qcom-tool)**: Embedded Controller (EC) research tools and fan control patterns.
+* **Jesse Ahn ([@moolwalk](https://github.com/moolwalk))**: Fixed the display for X1E Samsung panels (preventing black screen after initramfs) and contributed fixes for 16" SKUs.
 * **Canonical / Ubuntu**: Base 7.0 kernel and official OS image.
 
 ### Our Contribution (SaddyTech)

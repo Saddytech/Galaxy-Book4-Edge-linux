@@ -142,6 +142,7 @@ Three people / groups deserve explicit mention:
 1. **`zensanp`** — for maintaining the active kernel fork, writing honest caveats in issues #3 and #6, and shipping both the main branch and the `14-temp` variant
 2. **`jglathe`** — for publishing pre-built X1E80100 Ubuntu images that proved the concept was possible and served as a stepping stone away from the squashfs-live-boot dead end
 3. **`icecream95` and `Maccraft123`** — for reverse-engineering the ITE IT8987 EC on ASUS/Lenovo X1E laptops; their tools provided the ASUS-kick-start pattern that informed our own fan daemon work
+4. **`Jesse Ahn (@moolwalk)`** — for his link-rate fallback patch which fixed the display on X1E Samsung panels and prevented them from going dark after initramfs.
 
 ## 14.7 The agent's own self-assessment
 

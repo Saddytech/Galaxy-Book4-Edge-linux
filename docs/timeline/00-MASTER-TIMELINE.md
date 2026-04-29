@@ -54,7 +54,7 @@ The journey spans **five major phases** and thirteen chapters. Each chapter is i
 | ADSP / CDSP remoteprocs | ✅ | extracted from Windows DriverStore |
 | Audio codec (WCD938x) | ✅ bound via SoundWire | stock |
 | Built-in speakers (WSA884x) | ❌ UNATTACHED | known DT pinctrl gap |
-| Display (eDP panel) | ✅ | mainline DRM/MSM + link-rate fallback patch |
+| Display (eDP panel) | ✅ | mainline DRM/MSM + link-rate fallback patch (Jesse Ahn/@moolwalk) |
 | Adreno GPU | ❌ intentionally off (needs Mesa ≥ 25.3.3) | DTS `status = "disabled"` |
 | Battery percentage | ✅ native `/sys/class/power_supply/` integration | custom kernel module (Chapter 12) |
 | Fan control | ⚠️ basic zone + RPM works; ramp-speed research ongoing | userspace daemon + EC research |
