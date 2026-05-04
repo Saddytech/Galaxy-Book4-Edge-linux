@@ -47,6 +47,7 @@ A special thank you to the open-source community for laying the foundation for S
 * **Max ([zensanp](https://github.com/zensanp/linux-book4-edge))**: Base kernel fork and Device Trees.
 * **Wesley Cheng**: Initial X1 Elite minimal kernel.
 * **[jglathe](https://github.com/jglathe/linux_ms_dev_kit)**: Pre-built Ubuntu images used for initial booting.
+* **[moolwalk](https://github.com/moolwalk) (Jesse Ahn)**: Display initialization patches for Snapdragon X1E panels and 16" SKU specific hardware fixes.
 * **Joshua Grisham ([samsung-galaxybook-extras](https://github.com/joshuagrisham/samsung-galaxybook-extras))**: SABI v4 protocol and ACPI/DSDT research.
 * **[icecream95](https://github.com/icecream95/xle-ec-tool)** & **[Maccraft123](https://github.com/Maccraft123/it8987-qcom-tool)**: Embedded Controller (EC) research tools and fan control patterns.
 * **Canonical / Ubuntu**: Base 7.0 kernel and official OS image.
