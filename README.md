@@ -1,61 +1,90 @@
-# Samsung Galaxy Book4 Edge - Linux Hardware Support
+# Samsung Galaxy Book4 Edge — Linux Research & Support
 
-This repository contains reverse-engineered drivers, tools, and documentation for running Linux on the **Samsung Galaxy Book4 Edge** (Snapdragon X1E). 
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](LICENSE)
+[![Platform: Snapdragon X Elite](https://img.shields.io/badge/Platform-Snapdragon%20X%20Elite-orange.svg)](https://www.qualcomm.com/products/mobile/snapdragon/pc-processors/snapdragon-x-elite)
+[![Status: Experimental](https://img.shields.io/badge/Status-Experimental-red.svg)](#disclaimer)
 
-Due to the device's proprietary ACPI implementations and reliance on the ENE KB9058 Embedded Controller (EC), many hardware features do not work out-of-the-box on mainline Linux. This repository aims to bridge those gaps.
+This repository serves as the central hub for the reverse-engineering efforts and Linux hardware support for the **Samsung Galaxy Book4 Edge** (14" and 16" models). 
 
-Watch the video here: https://youtu.be/V2DxY_PqLBg
+By reverse-engineering the **ENE KB9058 Embedded Controller (EC)** and the **SABI v4 protocol**, we have enabled critical features like battery reporting, thermal management, and reliable booting on this bleeding-edge ARM64 platform.
 
-## Repository Structure
+📺 **[Watch the full journey on YouTube](https://youtu.be/V2DxY_PqLBg)**
 
-### 🔋 [`driver/`](./driver/)
-Contains a custom Linux kernel module (`samsung_galaxybook_battery`) that makes the laptop's battery visible to the OS.
-* Bypasses broken ACPI methods and speaks directly to the EC over the Mbox protocol.
-* Provides a standard `power_supply` device that works with GNOME, KDE, `upower`, `acpi`, and waybar.
+---
 
-### 🛠️ [`tools/`](./tools/)
-A suite of Python scripts used to reverse-engineer and communicate with the ENE KB9058 Embedded Controller over the I2C bus.
-* **Fan Control:** Direct control over fan curves and manual RPM overrides.
-* **Performance Profiles:** Switch between Silent, Auto, and Max Performance modes.
-* **Keyboard Backlight:** Set keyboard brightness and timeouts.
-* **Stress Testing:** Automated thermal testing scripts.
+## 📊 Hardware Support Status
 
-### 📚 [`docs/`](./docs/)
-Extensive documentation detailing the reverse-engineering journey.
-* **`journey/`**: Step-by-step markdown notes covering everything from initial Windows driver reverse-engineering (Ghidra) to DSDT extraction and I2C protocol decoding.
-* **`timeline/`**: A chronological timeline of the project, including failures, pivots, and breakthroughs while getting a minimal Ubuntu environment to boot.
+| Feature | Status | Notes |
+| :--- | :--- | :--- |
+| **Boot (UFS)** | ✅ Working | Mainline kernel `7.0.0-22-qcom-x1e` |
+| **Battery Reporting** | ✅ Working | Custom `samsung_galaxybook_battery` module |
+| **Wi-Fi 7 / BT** | ✅ Working | via `ath12k` + Samsung firmware |
+| **Display** | ✅ Working | Internal OLED with DP link-rate fallback |
+| **USB-C / AltMode** | ✅ Working | Requires rebind recovery pattern |
+| **Audio (Codec)** | ✅ Working | Bound via SoundWire (WCD938x) |
+| **Keyboard** | ⚠️ Partial | Native HID events reach kernel; Wayland routing issues |
+| **Touchpad** | ⚠️ Partial | Patched I2C address `0xd1`; needs DTS polish |
+| **Fan Control** | ⚠️ Partial | Basic zone control works; SABI modes unresolved |
+| **Speakers** | ❌ Broken | WSA884x SoundWire needs pinctrl patches |
+| **GPU (Adreno)** | ❌ Broken | Needs Mesa ≥ 25.3.3 and firmware translation |
+| **Camera/Fingerprint** | ❌ Broken | No upstream driver support yet |
 
-## Pre-built Bootkits (ISOs)
+---
 
-If you are looking for ready-to-use bootable Linux images that already include these drivers and tools, please check the **[Releases](../../releases)** page of this GitHub repository. 
+## 🚀 Quick Start
 
-> **Note:** Do not clone this repository expecting an ISO file. Large `.tar.gz` bootkits are attached strictly to GitHub Releases to keep the source tree clean and lightweight.
+### 1. Using Pre-built "Bootkits" (ISOs)
+The easiest way to get started is by using our pre-patched Ubuntu ISOs, which include all the drivers and configurations documented here.
+*   **[Download Latest Release](../../releases)**
+*   **Note:** These images are provided as research snapshots.
 
-## Disclaimer
+### 2. Manual Driver Installation
+If you are already running Linux on your Book4 Edge, you can install the battery driver manually:
+```bash
+cd driver
+make
+sudo make install
+sudo systemctl enable --now samsung-galaxybook-battery.service
+```
 
-This software is experimental and was developed through reverse-engineering. It interacts directly with low-level hardware components (I2C, Embedded Controller, Thermal Management). **Use at your own risk.** We are not responsible for any hardware damage or bricked devices.
+---
 
-## License
+## 📂 Repository Organization
 
-* The Battery Driver (`driver/`) is licensed under GPL v2.
-* Scripts and tools are provided as-is for research and development purposes.
+*   **[`driver/`](./driver/)**: The core `samsung_galaxybook_battery` kernel module (GPL v2).
+*   **[`tools/`](./tools/)**: Python scripts for EC communication, fan control, and stress testing.
+*   **[`docs/`](./docs/)**: 
+    *   **[`journey/`](./docs/journey/)**: Deep-dive reverse engineering notes (Ghidra, DSDT, I2C).
+    *   **[`timeline/`](./docs/timeline/)**: A day-by-day account of the project's breakthroughs and pivots.
 
-## Credits & Acknowledgements
+---
 
-A special thank you to the open-source community for laying the foundation for Snapdragon X Elite devices:
+## 🛠️ Technical Achievements
 
-* **Max ([zensanp](https://github.com/zensanp/linux-book4-edge))**: Base kernel fork and Device Trees.
-* **Wesley Cheng**: Initial X1 Elite minimal kernel.
-* **[jglathe](https://github.com/jglathe/linux_ms_dev_kit)**: Pre-built Ubuntu images used for initial booting.
-* **[moolwalk](https://github.com/moolwalk) (Jesse Ahn)**: Display initialization patches for Snapdragon X1E panels and 16" SKU specific hardware fixes.
-* **Joshua Grisham ([samsung-galaxybook-extras](https://github.com/joshuagrisham/samsung-galaxybook-extras))**: SABI v4 protocol and ACPI/DSDT research.
-* **[icecream95](https://github.com/icecream95/xle-ec-tool)** & **[Maccraft123](https://github.com/Maccraft123/it8987-qcom-tool)**: Embedded Controller (EC) research tools and fan control patterns.
-* **Canonical / Ubuntu**: Base 7.0 kernel and official OS image.
+*   **ENE KB9058 RE**: Documented the I2C Mailbox wire protocol for the first time.
+*   **Battery Driver**: A from-scratch implementation speaking directly to the EC to bypass broken ACPI methods.
+*   **PXE Boot Infrastructure**: Custom network-boot setup to iterate kernels without relying on fragile USB-C controllers.
 
-### Our Contribution (SaddyTech)
+---
 
-Specific solutions we engineered to make the 16" Galaxy Book4 Edge (NP960XMA-KB1IT) fully usable:
+## ❤️ Credits & Acknowledgements
 
-* **Battery Driver**: Reverse-engineered the ENE KB9058 EC Mailbox protocol and wrote the `samsung_galaxybook_battery.c` driver from scratch.
-* **PXE Boot**: Built a custom network boot infrastructure to bypass dead USB controllers during installation.
-* **DTS & Firmware**: Manually patched the touchpad I2C address (`0xd1`) and extracted Samsung `.jsn` files from Windows for USB-C altmode.
+This project stands on the shoulders of the open-source community working on Snapdragon X Elite support:
+
+*   **Max ([zensanp](https://github.com/zensanp/linux-book4-edge))**: Base kernel fork and Device Trees.
+*   **[moolwalk](https://github.com/moolwalk) (Jesse Ahn)**: Critical display patches and 16" SKU hardware fixes.
+*   **[jglathe](https://github.com/jglathe/linux_ms_dev_kit)**: Pre-built Ubuntu images used for initial booting.
+*   **Joshua Grisham ([samsung-galaxybook-extras](https://github.com/joshuagrisham/samsung-galaxybook-extras))**: SABI protocol research.
+*   **[icecream95](https://github.com/icecream95/xle-ec-tool)** & **[Maccraft123](https://github.com/Maccraft123/it8987-qcom-tool)**: EC research tools foundation.
+*   **Wesley Cheng**: Initial X1 Elite kernel work.
+
+---
+
+## ⚖️ Disclaimer & License
+
+**Disclaimer:** This software is experimental. It interacts with low-level hardware (EC, Power Management). Use at your own risk. We are not responsible for bricked devices or hardware damage.
+
+*   **Drivers**: GPL v2
+*   **Tools/Docs**: Provided for research purposes under MIT license where applicable.
+
+*Developed with passion by **SaddyTech***
