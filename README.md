@@ -8,7 +8,7 @@ This repository serves as the central hub for the reverse-engineering efforts an
 
 By reverse-engineering the **ENE KB9058 Embedded Controller (EC)** and the **SABI v4 protocol**, we have enabled critical features like battery reporting, thermal management, and reliable booting on this bleeding-edge ARM64 platform.
 
-📺 **[Watch the full journey on YouTube](https://youtu.be/V2DxY_PqLBg)**
+📺 **[Watch the full journey on YouTube](https://www.youtube.com/watch?v=CHsNBsYXaqA)**
 
 ---
 
